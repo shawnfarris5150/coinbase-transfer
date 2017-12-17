@@ -1,16 +1,16 @@
 "use strict";
-var config = require('./config'),
-    CoinbaseClient = require('coinbase').Client,
-    Transaction = require('coinbase').Transaction
+const   config = require('./config'),
+        CoinbaseClient = require('coinbase').Client,
+        Transaction = require('coinbase').Transaction
 ;
 
 
-var client = new CoinbaseClient({'apiKey': config.api_key, 'apiSecret': config.api_secret});
+const client = new CoinbaseClient({'apiKey': config.api_key, 'apiSecret': config.api_secret});
 
 
 
 // Helper function to display error message and then quit the program.
-var processError = function(scope, err) {
+const processError = function(scope, err) {
     if (err != null) {
         console.log(scope + ': ' + err);
         process.exit(1);
@@ -23,8 +23,8 @@ var processError = function(scope, err) {
 const processTransactions = function(txnList) {
     if (txnList.length != 0) {
         if ( !(txnList instanceof Array) && !(txnList[0] instanceof Transaction) ) {
-        throw "An array of type 'Transaction' is expected.";
-    }
+            throw "An array of type 'Transaction' is expected.";
+        }
 
         var applicableAmountList = [];
         const currentDate = new Date();
@@ -75,7 +75,7 @@ client.getCurrentUser(function(err, user) {
                 processError('Get Transactions', err);
                 amount = processTransactions(txnList);
             });
-            });
+        });
 
         if (amount > 0) {
             const opts = {
@@ -86,7 +86,7 @@ client.getCurrentUser(function(err, user) {
             account.sendMoney(opts, function(err, txn) {
                 processError(err);
                 console.log('\n\nTransaction created: \n' + txn);
-        });
+            });
         }
     });
 });
