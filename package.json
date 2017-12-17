@@ -4,7 +4,7 @@
   "description": "This utility helps to transfer balance from my Coinbase account to my friend's on a regular basis.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
