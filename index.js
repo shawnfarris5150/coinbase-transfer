@@ -10,9 +10,9 @@ var client = new CoinbaseClient({'apiKey': config.api_key, 'apiSecret': config.a
 
 
 // Helper function to display error message and then quit the program.
-var processError = function(err) {
+var processError = function(scope, err) {
     if (err != null) {
-        console.log(err);
+        console.log(scope + ': ' + err);
         process.exit(1);
     }
 }
@@ -34,13 +34,13 @@ client.getCurrentUser(function(err, user) {
 
     // Get all transactions under a specific address.
     client.getAccount(config.account_id, function(err, account) {
-        processError(err);
+        processError('Get Account', err);
         
-        account.getAddress(config.ethermine_addr, function(err, addr) {
-            processError(err);
+        account.getAddress(config.ethermine_addr_id, function(err, addr) {
+            processError('Get Address', err);
             
             addr.getTransactions(null, function(err, txList) {
-                processError(err);
+                processError('Get Transactions', err);
                 processTransactions(txList);
             });
         });
