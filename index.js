@@ -18,11 +18,42 @@ var processError = function(scope, err) {
 }
 
 
-var processTransactions = function(txList) {
-    if ( !(txList instanceof Array(Transaction)) ) {
+// Find if received a transaction in 24 hours. 
+// If yes, half of the amount should be sent to my friend.
+const processTransactions = function(txnList) {
+    if (txnList.length != 0) {
+        if ( !(txnList instanceof Array) && !(txnList[0] instanceof Transaction) ) {
         throw "An array of type 'Transaction' is expected.";
     }
-    // TODO
+
+        var applicableAmountList = [];
+        const currentDate = new Date();
+        txnList.forEach(function(txn, index) {
+            const updatedDate = new Date(txn.updated_at);
+            const diffHours = (currentDate - updatedDate) / (1000 * 60 * 60);
+
+            if (diffHours < 24 && txn.status === 'completed' && txn.type === 'receive') {
+                applicableAmountList.push(txn.amount);
+                console.log(txn);
+            }
+        });
+
+        if (applicableAmountList.length == 0) {
+            console.log('No applicable transactions in the wallet. Program exits...');
+            return -1;
+        } else {
+            var totalAmount = 0;
+            applicableAmountList.forEach(function(amountObj, index) {
+                totalAmount += parseFloat(amountObj.amount);
+            });
+            return totalAmount / 2.0;
+        }
+
+
+    } else {
+        console.log('No transactions in the wallet. Program exits...');
+        return -1;
+    }
 }
 
 
