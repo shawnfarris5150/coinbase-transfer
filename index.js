@@ -29,7 +29,7 @@ var processTransactions = function(txList) {
 client.getCurrentUser(function(err, user) {
     processError(err);
 
-    console.log('Logged in as ' + user.username + ', ' + user.name);
+    console.log('Logged in as ' + user.name);
     console.log('================================================');
 
     // Get all transactions under a specific address.
