@@ -36,13 +36,26 @@ client.getCurrentUser(function(err, user) {
     client.getAccount(config.account_id, function(err, account) {
         processError('Get Account', err);
         
+        var amount = 0;
         account.getAddress(config.ethermine_addr_id, function(err, addr) {
             processError('Get Address', err);
             
-            addr.getTransactions(null, function(err, txList) {
+            addr.getTransactions(null, function(err, txnList) {
                 processError('Get Transactions', err);
-                processTransactions(txList);
+                amount = processTransactions(txnList);
             });
+            });
+
+        if (amount > 0) {
+            const opts = {
+                'to': config.to_address,
+                'amount': amount,
+                'currency': 'ETH'
+            };
+            account.sendMoney(opts, function(err, txn) {
+                processError(err);
+                console.log('\n\nTransaction created: \n' + txn);
         });
+        }
     });
 });
