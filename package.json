@@ -1,0 +1,22 @@
+{
+  "name": "coinbase-transfer",
+  "version": "1.0.0",
+  "description": "This utility helps to transfer balance from my Coinbase account to my friend's on a regular basis.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterjtan/coinbase-transfer.git"
+  },
+  "author": "Peter Tan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterjtan/coinbase-transfer/issues"
+  },
+  "homepage": "https://github.com/peterjtan/coinbase-transfer#readme",
+  "dependencies": {
+    "coinbase": "^2.0.6"
+  }
+}
