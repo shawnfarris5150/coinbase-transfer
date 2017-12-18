@@ -83,6 +83,7 @@ client.getCurrentUser(function(err, user) {
                 'amount': amount,
                 'currency': 'ETH'
             };
+            console.log('Sending to ' + config.to_address + ' with amount ' + amount + ' ...');
             account.sendMoney(opts, function(err, txn) {
                 processError(err);
                 console.log('\n\nTransaction created: \n' + txn);
