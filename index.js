@@ -32,7 +32,7 @@ const processTransactions = function(txnList) {
             const updatedDate = new Date(txn.updated_at);
             const diffHours = (currentDate - updatedDate) / (1000 * 60 * 60);
 
-            if (diffHours < 24 && txn.status === 'completed' && txn.type === 'receive') {
+            if (diffHours < 24 && txn.status === 'completed' && txn.type === 'send') {
                 applicableAmountList.push(txn.amount);
                 console.log(txn);
             }
@@ -67,27 +67,26 @@ client.getCurrentUser(function(err, user) {
     client.getAccount(config.account_id, function(err, account) {
         processError('Get Account', err);
         
-        var amount = 0;
         account.getAddress(config.ethermine_addr_id, function(err, addr) {
             processError('Get Address', err);
             
             addr.getTransactions(null, function(err, txnList) {
                 processError('Get Transactions', err);
-                amount = processTransactions(txnList);
+                var amount = processTransactions(txnList);
+
+                if (amount > 0) {
+                    const opts = {
+                        'to': config.to_address,
+                        'amount': amount,
+                        'currency': 'ETH'
+                    };
+                    console.log('Sending to ' + opts.to + ' with ' + opts.currency + ' ' + opts.amount + ' ...');
+                    account.sendMoney(opts, function(err, txn) {
+                        processError(err);
+                        console.log('\n\nTransaction created: \n' + txn);
+                    });
+                }
             });
         });
-
-        if (amount > 0) {
-            const opts = {
-                'to': config.to_address,
-                'amount': amount,
-                'currency': 'ETH'
-            };
-            console.log('Sending to ' + opts.to + ' with ' + opts.currency + ' ' + opts.amount + ' ...');
-            account.sendMoney(opts, function(err, txn) {
-                processError(err);
-                console.log('\n\nTransaction created: \n' + txn);
-            });
-        }
     });
 });
