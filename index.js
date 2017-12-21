@@ -66,6 +66,14 @@ client.getCurrentUser(function(err, user) {
     // Get all transactions under a specific address.
     client.getAccount(config.account_id, function(err, account) {
         processError('Get Account', err);
+
+        // account.getAddresses(null, function(err, addr) {
+        //     processError('Get All Addresses', err);
+        //     console.log("All addresses for account " + account.name + ": ");
+        //     addr.forEach(function(val, index) {
+        //         console.log("  - " +  val);
+        //     })
+        // });
         
         account.getAddress(config.ethermine_addr_id, function(err, addr) {
             processError('Get Address', err);
