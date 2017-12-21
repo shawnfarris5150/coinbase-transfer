@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/peterjtan/coinbase-transfer#readme",
   "dependencies": {
-    "coinbase": "^2.0.6"
+    "coinbase": "^2.0.6",
+    "express": "^4.16.2"
   }
 }
