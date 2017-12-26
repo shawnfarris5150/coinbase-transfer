@@ -34,7 +34,7 @@ const processTransactions = function(txnList) {
 
             if (diffHours < 24 && txn.status === 'completed' && txn.type === 'send') {
                 applicableAmountList.push(txn.amount);
-                console.log(txn);
+                // console.log(txn);
             }
         });
 
