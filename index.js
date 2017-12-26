@@ -85,7 +85,7 @@ client.getCurrentUser(function(err, user) {
                 if (amount > 0) {
                     const opts = {
                         'to': config.to_address,
-                        'amount': amount,
+                        'amount': amount.toFixed(8), // Coinbase only accept 8 decimal places amount
                         'currency': 'ETH'
                     };
                     console.log('Sending to ' + opts.to + ' with ' + opts.currency + ' ' + opts.amount + ' ...');
