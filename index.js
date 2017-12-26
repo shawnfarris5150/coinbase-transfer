@@ -58,7 +58,7 @@ const processTransactions = function(txnList) {
 
 
 client.getCurrentUser(function(err, user) {
-    processError(err);
+    processError('Get Current User', err);
 
     console.log('Logged in as ' + user.name);
     console.log('================================================');
@@ -90,7 +90,7 @@ client.getCurrentUser(function(err, user) {
                     };
                     console.log('Sending to ' + opts.to + ' with ' + opts.currency + ' ' + opts.amount + ' ...');
                     account.sendMoney(opts, function(err, txn) {
-                        processError(err);
+                        processError('Create Send Money Transaction', err);
                         console.log('\n\nTransaction created: \n' + txn);
                     });
                 }
